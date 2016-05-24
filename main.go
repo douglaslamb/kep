@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
 // alright so I want to make a thing that slurps some json and then gives you some options re sorting them like contacts. like I want to be able to look up a person by like last name, like with "kt find last-name first-name" or kt name last-name first-name or kt name last-name or kit knt knt knt knt knit knt kt knt kt I dunno.
@@ -29,18 +30,35 @@ type Config struct {
 	KtFile string `json:"ktfile"`
 }
 
+type Contact struct {
+	LastName  string `json:"lastname"`
+	FirstName string `json:"firstname"`
+	Address   string `json:"address"`
+	City      string `json:"city"`
+	State     string `json:"state"`
+	Country   string `json:"country"`
+	Email     string `json:"email"`
+	Note      string `json:"note"`
+}
+
 func main() {
 	// 1. slurp config file
 	jsonFile := loadConfig()
-	fmt.Println(jsonFile)
+	jsonFile = strings.Replace(jsonFile, "~", os.Getenv("HOME"), -1)
 	dat, err := ioutil.ReadFile(jsonFile)
 	if err != nil {
 		panic(err)
 	}
-	contacts := string(dat)
-	//contactsArr, file := filepath.Split(contacts)
-	//fmt.Println(contactsArr)
-	fmt.Println(os.Getenv("HOME"))
+	contacts := []Contact{}
+	if err := json.Unmarshal(dat, &contacts); err != nil {
+		panic(err)
+	}
+
+	for _, contact := range contacts {
+		fmt.Println(contact.FirstName)
+		fmt.Println(contact.LastName)
+	}
+
 	/*
 		app := cli.NewApp()
 		app.Name = "boom"
@@ -61,6 +79,5 @@ func loadConfig() string {
 	}
 	config := Config{}
 	json.Unmarshal(dat, &config)
-	//fmt.Println(string(dat))
 	return config.KtFile
 }
