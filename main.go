@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/urfave/cli"
 )
 
 // alright so I want to make a thing that slurps some json and then gives you some options re sorting them like contacts. like I want to be able to look up a person by like last name, like with "kt find last-name first-name" or kt name last-name first-name or kt name last-name or kit knt knt knt knt knit knt kt knt kt I dunno.
@@ -54,22 +56,26 @@ func main() {
 		panic(err)
 	}
 
+	app := cli.NewApp()
+	app.Name = "Lek"
+	app.Usage = "Manage contacts"
+	app.Action = func(c *cli.Context) error {
+		if c.Args()[0] == "all" {
+			// print all contacts option
+			printAll(contacts)
+		}
+		return nil
+	}
+
+	app.Run(os.Args)
+}
+
+func printAll(contacts []Contact) {
 	for _, contact := range contacts {
 		fmt.Println(contact.FirstName)
 		fmt.Println(contact.LastName)
+		fmt.Println()
 	}
-
-	/*
-		app := cli.NewApp()
-		app.Name = "boom"
-		app.Usage = "make a fart"
-		app.Action = func(c *cli.Context) error {
-			fmt.Println("farts are retarded")
-			return nil
-		}
-
-		app.Run(os.Args)
-	*/
 }
 
 func loadConfig() string {
