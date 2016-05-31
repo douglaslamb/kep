@@ -37,6 +37,7 @@ type Contact struct {
 	LastName  string `json:"lastname"`
 	FirstName string `json:"firstname"`
 	Address   string `json:"address"`
+	Phone     string `json:"phone"`
 	City      string `json:"city"`
 	State     string `json:"state"`
 	Country   string `json:"country"`
@@ -141,6 +142,9 @@ func formatContact(contact *Contact) string {
 	}
 	if contact.Address != "" {
 		out = out + contact.Address + "\n   "
+	}
+	if contact.Phone != "" {
+		out = out + contact.Phone + "\n   "
 	}
 	if contact.City != "" {
 		out = out + contact.City + "\n   "
