@@ -78,14 +78,12 @@ func main() {
 	app.Action = func(c *cli.Context) error {
 		out := ""
 		switch c.Args()[0] {
-		case "all":
+		case "all", "a":
 			out = allContacts(contacts)
-		case "fname":
+		case "fname", "f":
 			out = byFirstName(contacts, c.Args()[1])
-			// print only with matching first name
-		case "lname":
+		case "lname", "l":
 			out = byLastName(contacts, c.Args()[1])
-			// print only with matching last name
 		case "note":
 			// print only with matching note content
 			// TO BE WRITTEN
