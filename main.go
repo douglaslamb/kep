@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/urfave/cli"
@@ -43,6 +44,20 @@ type Contact struct {
 	Note      string `json:"note"`
 }
 
+type ContactArray []Contact
+
+func (c ContactArray) Len() int {
+	return len(c)
+}
+
+func (c ContactArray) Swap(i, j int) {
+	c[i], c[j] = c[j], c[i]
+}
+
+func (c ContactArray) Less(i, j int) bool {
+	return c[i].LastName < c[j].LastName
+}
+
 func main() {
 	// 1. slurp config file
 	jsonFile := loadConfig()
@@ -55,27 +70,79 @@ func main() {
 	if err := json.Unmarshal(dat, &contacts); err != nil {
 		panic(err)
 	}
+	sort.Sort(ContactArray(contacts))
 
 	app := cli.NewApp()
 	app.Name = "Lek"
 	app.Usage = "Manage contacts"
 	app.Action = func(c *cli.Context) error {
-		if c.Args()[0] == "all" {
-			// print all contacts option
-			printAll(contacts)
+		out := ""
+		switch c.Args()[0] {
+		case "all":
+			out = allContacts(contacts)
+		case "fname":
+			out = byFirstName(contacts, c.Args()[1])
+			// print only with matching first name
+		case "lname":
+			// print only with matching last name
+		case "note":
+			// print only with matching note content
 		}
+		fmt.Print(out)
 		return nil
 	}
 
 	app.Run(os.Args)
 }
 
-func printAll(contacts []Contact) {
-	for _, contact := range contacts {
-		fmt.Println(contact.FirstName)
-		fmt.Println(contact.LastName)
-		fmt.Println()
+func allContacts(contacts []Contact) string {
+	out := ""
+	for i, contact := range contacts {
+		out = out + fmt.Sprintf("%v  %v", i+1, formatContact(&contact))
 	}
+	return out
+}
+
+func byFirstName(contacts []Contact, firstName string) string {
+	out := ""
+	count := 1
+	for _, contact := range contacts {
+		if strings.ToLower(contact.FirstName) == strings.ToLower(firstName) {
+			out = out + fmt.Sprintf("%v  %v", count, formatContact(&contact))
+			count = count + 1
+		}
+	}
+	return out
+}
+
+func formatContact(contact *Contact) string {
+	var out string = ""
+	if contact.FirstName != "" {
+		out = out + contact.FirstName + "\n   "
+	}
+	if contact.LastName != "" {
+		out = out + contact.LastName + "\n   "
+	}
+	if contact.Email != "" {
+		out = out + contact.Email + "\n   "
+	}
+	if contact.Address != "" {
+		out = out + contact.Address + "\n   "
+	}
+	if contact.City != "" {
+		out = out + contact.City + "\n   "
+	}
+	if contact.State != "" {
+		out = out + contact.State + "\n   "
+	}
+	if contact.Country != "" {
+		out = out + contact.Country + "\n   "
+	}
+	if contact.Note != "" {
+		out = out + contact.Note + "\n   "
+	}
+	out = out + "\n"
+	return out
 }
 
 func loadConfig() string {
