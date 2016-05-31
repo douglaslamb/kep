@@ -84,9 +84,12 @@ func main() {
 			out = byFirstName(contacts, c.Args()[1])
 			// print only with matching first name
 		case "lname":
+			out = byLastName(contacts, c.Args()[1])
 			// print only with matching last name
 		case "note":
 			// print only with matching note content
+			// TO BE WRITTEN
+			// probably make this a regex search
 		}
 		fmt.Print(out)
 		return nil
@@ -108,6 +111,18 @@ func byFirstName(contacts []Contact, firstName string) string {
 	count := 1
 	for _, contact := range contacts {
 		if strings.ToLower(contact.FirstName) == strings.ToLower(firstName) {
+			out = out + fmt.Sprintf("%v  %v", count, formatContact(&contact))
+			count = count + 1
+		}
+	}
+	return out
+}
+
+func byLastName(contacts []Contact, lastName string) string {
+	out := ""
+	count := 1
+	for _, contact := range contacts {
+		if strings.ToLower(contact.LastName) == strings.ToLower(lastName) {
 			out = out + fmt.Sprintf("%v  %v", count, formatContact(&contact))
 			count = count + 1
 		}
