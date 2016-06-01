@@ -42,10 +42,10 @@ Here is how it should look:
 `kep f aFirstName` prints all of the contacts with the first name aFirstName in alphabetical order. For example, `kep f Sara` prints all of the contacts with the first name "Sara." It is not case-sensitive. The input string cannot have any spaces.
 
 ### kep l aLastName
-`kep l aLastName` prints all of the contacts with the last name aLastName in alphabetical order. For example, `kep f Tundly` prints all of the contacts with the last name "Tundly." It is not case-sensitive. The input string cannot have any spaces.
+`kep l aLastName` prints all of the contacts with the last name aLastName in alphabetical order. For example, `kep l Tundly` prints all of the contacts with the last name "Tundly." It is not case-sensitive. The input string cannot have any spaces.
 
 ### kep n aWordInNote
-`kep n aWordInNote` prints all of the contacts with the aWordInNote in their note in alphabetical order. For example, `kep n butthole` prints all of the contacts with "butthole" in their notes. It is not case-sensitive. The input string cannot have any spaces.
+`kep n aWordInNote` prints all of the contacts with the aWordInNote in their note in alphabetical order. For example, `kep n butthole` prints all of the contacts with the word "butthole" in their notes. It is not case-sensitive. The input string cannot have any spaces.
 
 ## Attributions
 
