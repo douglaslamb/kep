@@ -52,7 +52,7 @@ func main() {
 	  {
 	    "l": "Doe",
 	    "f": "John",
-	    "e": "djohn@hell.com",
+	    "e": "jdoe@hell.com",
 	    "a": "347 Bort Street",
 	    "p": "555 555 5555",
 	    "c": "Hot Shower Town",
