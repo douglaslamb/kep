@@ -1,38 +1,34 @@
-# Kep
+# kep
 
-Kep is a contact management command-line tool written in Go.
+Kep is a command-line tool for managing contacts written in Go by Douglas Lamb. You maintain JSON array of objects in a text file, and kep enables you to look up one or more of your contacts and print their information to the console.
 
-## 
-This is a REST API written in Go by Douglas Lamb. It responds to http GET requests for a list of businesses with pagination and for individual businesses specified by an ID.
+## Install from source
 
-## Run
+1. Install Golang 
+2. Set your GOPATH and put GOPATH in your PATH. Search Google for help if needed.
+2. Clone repo `git clone https://github.com/douglaslamb/kep`
+3. Install the CLI library `go get github.com/urfave/cli` Hopefully it is still around.
+4. Navigate to the kep repo you cloned and `go install`
 
-First create a folder called "resources" in the root of the repo. Place "engineering_project_businesses.csv" in the "resources" folder. Run `go run main.go structs.go` from the root of the repo. This is not necessary if you intend to install. Please see example_engineering_project_businesses.csv for an example of valid input.
+## Setup
 
-## Install
+Run `kep` with no arguments. Kep will create .keprc in your home folder. The default .keprc specifies ~/.kep.json as your contact file. kep will instruct you to create ~/.kep.json and will print the JSON schema to the console. Create ~/.kep.json with at least one contact. You do not need to fill in every property. Just the first and last name will suffice.
 
-First create a folder called "resources" in the root of the repo. Place "engineering_project_businesses.csv" in the "resources" folder. Run `go install` from the root of the repo. Execute the program by running `ownlocal-api` from anywhere within the system. Ensure that GOPATH/bin has been added to your PATH. Please see example_engineering_project_businesses.csv for an example of valid input.
+## Commands 
 
-## Usage
+### kep a
 
-As written it hosts the API at http://localhost:8080 . It responds to two types of GET requests.
+`kep a` prints all of the contacts in alphabetical order.
 
-### GET /businesses
+### kep f aFirstName
+`kep f aFirstName` prints all of the contacts with the first name aFirstName in alphabetical order. For example, `kep f Sara` prints all of the contacts with the first name "Sara." It is not case-sensitive. The input string cannot have any spaces.
 
-Running http://localhost:8080/businesses from the server will return a JSON object containing an array of businesses and a "links" object. The businesses are paginated. The default page number is 1 and the default page size is 50. Hence http://localhost:8080/businesses will return the first 50 businesses.
+### kep l aLastName
+`kep l aLastName` prints all of the contacts with the last name aLastName in alphabetical order. For example, `kep f Tundly` prints all of the contacts with the last name "Tundly." It is not case-sensitive. The input string cannot have any spaces.
 
-The client may specify the page and/or page size. For example, http://localhost:8080?page=20&perPage=60 . This request will return the 20th page with 60 businesses per page.
-
-The "links" object contains four strings which correspond to the first, previous, next, and last pages respectively. The client may use these links to traverse the collection.
-
-### GET /business/{id}
-
-Running http://localhost:8080/business/{id} from the server will return a JSON object representing the business with id {id}. For example http://localhost:8080/business/584 returns the business with id 584. Ids must be integers, zero or greater.
-
-## Testing
-
-Start the server by following the instructions in the run or install section above. Then run `go test` from the root of the repo.
+### kep n aWordInNote
+`kep n aWordInNote` prints all of the contacts with the aWordInNote in their note in alphabetical order. For example, `kep n butthole` prints all of the contacts with "butthole" in their notes. It is not case-sensitive. The input string cannot have any spaces.
 
 ## Attributions
 
-This software uses Go (https://golang.org) and httprouter (https://github.com/julienschmidt/httprouter). This software compiles on OSX but has not been tested on Linux.
+This software uses Go https://golang.org and cli https://github.com/urfave/cli. 
