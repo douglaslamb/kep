@@ -30,19 +30,19 @@ import (
 // 3. printing the contents of the array to stdout
 
 type Config struct {
-	KtFile string `json:"ktfile"`
+	KepFile string `json:"kepfile"`
 }
 
 type Contact struct {
-	LastName  string `json:"lastname"`
-	FirstName string `json:"firstname"`
-	Address   string `json:"address"`
-	Phone     string `json:"phone"`
-	City      string `json:"city"`
-	State     string `json:"state"`
-	Country   string `json:"country"`
-	Email     string `json:"email"`
-	Note      string `json:"note"`
+	LastName  string `json:"l"`
+	FirstName string `json:"f"`
+	Address   string `json:"a"`
+	Phone     string `json:"p"`
+	City      string `json:"c"`
+	State     string `json:"s"`
+	Country   string `json:"co"`
+	Email     string `json:"e"`
+	Note      string `json:"n"`
 }
 
 type ContactArray []Contact
@@ -85,10 +85,8 @@ func main() {
 			out = byFirstName(contacts, c.Args()[1])
 		case "lname", "l":
 			out = byLastName(contacts, c.Args()[1])
-		case "note":
-			// print only with matching note content
-			// TO BE WRITTEN
-			// probably make this a regex search
+		case "note", "n":
+			out = byNote(contacts, c.Args()[1])
 		}
 		fmt.Print(out)
 		return nil
@@ -122,6 +120,18 @@ func byLastName(contacts []Contact, lastName string) string {
 	count := 1
 	for _, contact := range contacts {
 		if strings.ToLower(contact.LastName) == strings.ToLower(lastName) {
+			out = out + fmt.Sprintf("%v  %v", count, formatContact(&contact))
+			count = count + 1
+		}
+	}
+	return out
+}
+
+func byNote(contacts []Contact, note string) string {
+	out := ""
+	count := 1
+	for _, contact := range contacts {
+		if strings.Contains(strings.ToLower(contact.Note), strings.ToLower(note)) {
 			out = out + fmt.Sprintf("%v  %v", count, formatContact(&contact))
 			count = count + 1
 		}
@@ -163,11 +173,11 @@ func formatContact(contact *Contact) string {
 }
 
 func loadConfig() string {
-	dat, err := ioutil.ReadFile(os.Getenv("HOME") + "/.ktrc")
+	dat, err := ioutil.ReadFile(os.Getenv("HOME") + "/.keprc")
 	if err != nil {
 		panic(err)
 	}
 	config := Config{}
 	json.Unmarshal(dat, &config)
-	return config.KtFile
+	return config.KepFile
 }
