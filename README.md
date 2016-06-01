@@ -14,6 +14,24 @@ Kep is a command-line tool for managing contacts written in Go by Douglas Lamb. 
 
 Run `kep` with no arguments. Kep will create .keprc in your home folder. The default .keprc specifies ~/.kep.json as your contact file. kep will instruct you to create ~/.kep.json and will print the JSON schema to the console. Create ~/.kep.json with at least one contact. You do not need to fill in every property. Just the first and last name will suffice.
 
+Here is how it should look:
+
+```
+[
+  {
+    "l": "Doe",
+    "f": "John",
+    "e": "djohn@hell.com",
+    "a": "347 Bort Street",
+    "p": "555 555 5555",
+    "c": "Hot Shower Town",
+    "s": "Texiss",
+    "co": "Bungholia",
+    "n": "Nice boy with a big mouth."
+  }
+]
+```
+
 ## Commands 
 
 ### kep a
