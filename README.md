@@ -45,7 +45,7 @@ Here is how it should look:
 `kep l aLastName` prints all of the contacts with the last name aLastName in alphabetical order. For example, `kep l Tundly` prints all of the contacts with the last name "Tundly." It is not case-sensitive. The input string cannot have any spaces.
 
 ### kep n aWordInNote
-`kep n aWordInNote` prints all of the contacts with the aWordInNote in their note in alphabetical order. For example, `kep n butthole` prints all of the contacts with the word "butthole" in their notes. It is not case-sensitive. The input string cannot have any spaces.
+`kep n aWordInNote` prints all of the contacts with the word aWordInNote in their note in alphabetical order. For example, `kep n butthole` prints all of the contacts with the word "butthole" in their notes. It is not case-sensitive. The input string cannot have any spaces.
 
 ## Attributions
 
