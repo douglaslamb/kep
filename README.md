@@ -5,10 +5,11 @@ Kep is a command-line tool for managing contacts written in Go by Douglas Lamb. 
 ## Install from source
 
 1. Install Golang 
-2. Set your GOPATH and put GOPATH in your PATH. Search Google for help if needed.
-2. Clone repo `git clone https://github.com/douglaslamb/kep`
-3. Install the CLI library `go get github.com/urfave/cli` Hopefully it is still around.
-4. Navigate to the kep repo you cloned and `go install`
+2. Set your $GOPATH, and put $GOPATH/bin in your $PATH. Google for help if needed.
+3. cd to $GOPATH/src directory `cd $GOPATH/src`
+4. Clone kep `git clone https://github.com/douglaslamb/kep`
+5. Install the CLI library `go get github.com/urfave/cli` Hopefully it is still around.
+6. Navigate to the kep repo you cloned and `go install`
 
 ## Setup
 
